@@ -1,0 +1,25 @@
+function [classlabel,index]=imageclassifier(loc)
+class={'red rose','lilly'}
+disp('READING QUERY IMAGE')
+query_image = imread(loc);
+[QH_param,QS_param,QV_param] = img_calc(query_image);
+
+folder = 'C:\Users\priya\Desktop\9thsem\package\imageclassification\database';
+
+imagelist = dir('C:\Users\priya\Desktop\9thsem\package\imageclassification\database\*.jpg');
+n = length(imagelist);
+    v=ones(n+1,27);
+    q=ones(1,27);
+for i = 1 : n
+    im=sprintf('%s/%s',folder,imagelist(i).name)
+    dataimage = imread(im);
+    [DH_param,DS_param,DV_param] = img_calc(dataimage);
+    v(i,:)=combine(DH_param,DS_param,DV_param);
+    if()
+end
+w=learn_image(v,n)
+q(1,:)=combine(QH_param,QS_param,QV_param);
+classindex=classify(w,q)
+classindex=classindex+1
+classlabel=class{classindex}
+end
